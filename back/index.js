@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
   cors({
-    origin: "*",
+    origin: `https://authentication-front.vercel.app/`,
     methods: ["POST", "GET"],
     credentials: true,
   })
