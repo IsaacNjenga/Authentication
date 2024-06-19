@@ -5,11 +5,6 @@ const { mongoose } = require("mongoose");
 const cookieParser = require("cookie-parser");
 
 const app = express();
-//database connection
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => console.log("Database connected"))
-  .catch((err) => console.log("err", err));
 
 //middleware
 app.use(express.json());
@@ -18,10 +13,17 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
   cors({
+    origin: ["https://authentication-front.vercel.app/"],
+    methods: ["POST", "GET"],
     credentials: true,
-    origin: "http://localhost:3000",
   })
 );
+
+//database connection
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("Database connected"))
+  .catch((err) => console.log("err", err));
 
 app.use("/", require("./routes/authRoutes"));
 
